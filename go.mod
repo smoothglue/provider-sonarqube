@@ -1,4 +1,4 @@
-module github.com/upbound/upjet-provider-template
+module github.com/smoothglue/provider-sonarqube
 
 go 1.21
 
