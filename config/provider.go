@@ -10,7 +10,14 @@ import (
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
 
-	"github.com/smoothglue/provider-sonarqube/config/null"
+	"github.com/smoothglue/provider-sonarqube/config/group"
+	"github.com/smoothglue/provider-sonarqube/config/groupmember"
+	"github.com/smoothglue/provider-sonarqube/config/permissions"
+	"github.com/smoothglue/provider-sonarqube/config/permissiontemplate"
+	"github.com/smoothglue/provider-sonarqube/config/project"
+	"github.com/smoothglue/provider-sonarqube/config/projectmainbranch"
+	"github.com/smoothglue/provider-sonarqube/config/user"
+	"github.com/smoothglue/provider-sonarqube/config/webhook"
 )
 
 const (
@@ -27,7 +34,7 @@ var providerMetadata string
 // GetProvider returns provider configuration
 func GetProvider() *ujconfig.Provider {
 	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
-		ujconfig.WithRootGroup("crossplane.io"),
+		ujconfig.WithRootGroup("sonarqube.crossplane.io"),
 		ujconfig.WithIncludeList(ExternalNameConfigured()),
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithDefaultResourceOptions(
@@ -36,7 +43,14 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		null.Configure,
+		group.Configure,
+		groupmember.Configure,
+		permissions.Configure,
+		permissiontemplate.Configure,
+		project.Configure,
+		projectmainbranch.Configure,
+		user.Configure,
+		webhook.Configure,
 	} {
 		configure(pc)
 	}

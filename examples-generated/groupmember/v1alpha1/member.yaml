@@ -1,0 +1,46 @@
+apiVersion: groupmember.sonarqube.crossplane.io/v1alpha1
+kind: Member
+metadata:
+  annotations:
+    meta.upbound.io/example-id: groupmember/v1alpha1/member
+  labels:
+    testing.upbound.io/example-name: project_users_member
+  name: project-users-member
+spec:
+  forProvider:
+    loginName: ${sonarqube_user.user.login_name}
+    name: Project-Users
+
+---
+
+apiVersion: group.sonarqube.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: groupmember/v1alpha1/member
+  labels:
+    testing.upbound.io/example-name: project_users
+  name: project-users
+spec:
+  forProvider:
+    description: This is a group
+    name: Project-Users
+
+---
+
+apiVersion: user.sonarqube.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: groupmember/v1alpha1/member
+  labels:
+    testing.upbound.io/example-name: user
+  name: user
+spec:
+  forProvider:
+    loginName: terraform-test
+    name: terraform-test
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

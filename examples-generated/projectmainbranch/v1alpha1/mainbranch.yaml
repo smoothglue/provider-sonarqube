@@ -1,0 +1,30 @@
+apiVersion: projectmainbranch.sonarqube.crossplane.io/v1alpha1
+kind: MainBranch
+metadata:
+  annotations:
+    meta.upbound.io/example-id: projectmainbranch/v1alpha1/mainbranch
+  labels:
+    testing.upbound.io/example-name: mybranch
+  name: mybranch
+spec:
+  forProvider:
+    name: release
+    projectSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+
+---
+
+apiVersion: project.sonarqube.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  annotations:
+    meta.upbound.io/example-id: projectmainbranch/v1alpha1/mainbranch
+  labels:
+    testing.upbound.io/example-name: main
+  name: main
+spec:
+  forProvider:
+    name: SonarQube
+    project: my_project
+    visibility: public

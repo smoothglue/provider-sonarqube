@@ -9,8 +9,23 @@ import "github.com/crossplane/upjet/pkg/config"
 // ExternalNameConfigs contains all external name configurations for this
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
-	// Import requires using a randomly generated ID from provider: nl-2e21sda
-	"null_resource": config.IdentifierFromProvider,
+	// Note that commented out configurations exist in terraform as resources
+	// to import, but haven't (yet) been implemented in this provider.
+	//"sonarqube_gitlab_binding": config.IdentifierFromProvider,
+	"sonarqube_group":               config.IdentifierFromProvider,
+	"sonarqube_group_member":        config.IdentifierFromProvider,
+	"sonarqube_permission_template": config.IdentifierFromProvider,
+	"sonarqube_permissions":         config.IdentifierFromProvider,
+	//"sonarqube_plugin":                        config.IdentifierFromProvider,
+	//"sonarqube_portfolio":                     config.IdentifierFromProvider,
+	"sonarqube_project":             config.IdentifierFromProvider,
+	"sonarqube_project_main_branch": config.IdentifierFromProvider,
+	//"sonarqube_qualitygate":                     config.IdentifierFromProvider,
+	//"sonarqube_qualitygate_project_association": config.IdentifierFromProvider,
+	//"sonarqube_qualityprofile":                     config.IdentifierFromProvider,
+	//"sonarqube_qualityprofile_project_association": config.IdentifierFromProvider,
+	"sonarqube_user":    config.IdentifierFromProvider,
+	"sonarqube_webhook": config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

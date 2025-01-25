@@ -1,0 +1,12 @@
+apiVersion: webhook.sonarqube.crossplane.io/v1alpha1
+kind: Webhook
+metadata:
+  annotations:
+    meta.upbound.io/example-id: webhook/v1alpha1/webhook
+  labels:
+    testing.upbound.io/example-name: webhook
+  name: webhook
+spec:
+  forProvider:
+    name: terraform-webhook
+    url: https://my-webhook-destination.example.com

@@ -25,6 +25,12 @@ const (
 	errTrackUsage           = "cannot track ProviderConfig usage"
 	errExtractCredentials   = "cannot extract credentials"
 	errUnmarshalCredentials = "cannot unmarshal sonarqube credentials as JSON"
+	// authentication creds
+	keyHost                  = "host"
+	keyUser                  = "user"
+	keyPass                  = "pass"
+	keyToken                 = "token"
+	keyTLSInsecureSkipVerify = "tls_insecure_skip_verify"
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
@@ -63,10 +69,22 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		}
 
 		// Set credentials in Terraform provider configuration.
-		/*ps.Configuration = map[string]any{
-			"username": creds["username"],
-			"password": creds["password"],
-		}*/
+		ps.Configuration = map[string]any{}
+		if v, ok := creds[keyHost]; ok {
+			ps.Configuration[keyHost] = v
+		}
+		if v, ok := creds[keyUser]; ok {
+			ps.Configuration[keyUser] = v
+		}
+		if v, ok := creds[keyPass]; ok {
+			ps.Configuration[keyPass] = v
+		}
+		if v, ok := creds[keyToken]; ok {
+			ps.Configuration[keyToken] = v
+		}
+		if v, ok := creds[keyTLSInsecureSkipVerify]; ok {
+			ps.Configuration[keyTLSInsecureSkipVerify] = v
+		}
 		return ps, nil
 	}
 }
