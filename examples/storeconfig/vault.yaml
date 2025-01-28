@@ -1,4 +1,4 @@
-apiVersion: sonarqube.upbound.io/v1alpha1
+apiVersion: sonarqube.crossplane.io/v1alpha1
 kind: StoreConfig
 metadata:
   name: vault

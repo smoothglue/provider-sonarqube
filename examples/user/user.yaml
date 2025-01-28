@@ -1,0 +1,11 @@
+apiVersion: user.sonarqube.crossplane.io/v1alpha1
+kind: User
+metadata:
+  name: hellouser
+spec:
+  forProvider:
+    loginName: hellouser
+    name: "Hello User"
+    isLocal: false
+  providerConfigRef:
+    name: default

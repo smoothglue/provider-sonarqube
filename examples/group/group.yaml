@@ -1,0 +1,9 @@
+apiVersion: group.sonarqube.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  name: hellogroup
+spec:
+  forProvider:
+    name: hellogroup
+  providerConfigRef:
+    name: default

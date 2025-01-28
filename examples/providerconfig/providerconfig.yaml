@@ -1,4 +1,4 @@
-apiVersion: sonarqube.upbound.io/v1beta1
+apiVersion: sonarqube.crossplane.io/v1beta1
 kind: ProviderConfig
 metadata:
   name: default

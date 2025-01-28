@@ -1,0 +1,10 @@
+apiVersion: groupmember.sonarqube.crossplane.io/v1alpha1
+kind: Member
+metadata:
+  name: hellomember
+spec:
+  forProvider:
+    loginName: hellouser
+    name: hellogroup
+  providerConfigRef:
+    name: default

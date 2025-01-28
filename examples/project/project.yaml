@@ -1,0 +1,10 @@
+apiVersion: project.sonarqube.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  name: helloproject
+spec:
+  forProvider:
+    name: helloproject
+    project: helloprojectkey
+  providerConfigRef:
+    name: default
