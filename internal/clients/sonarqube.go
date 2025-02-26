@@ -25,12 +25,19 @@ const (
 	errTrackUsage           = "cannot track ProviderConfig usage"
 	errExtractCredentials   = "cannot extract credentials"
 	errUnmarshalCredentials = "cannot unmarshal sonarqube credentials as JSON"
-	// authentication creds
-	keyHost                  = "host"
-	keyUser                  = "user"
-	keyPass                  = "pass"
-	keyToken                 = "token"
-	keyTLSInsecureSkipVerify = "tls_insecure_skip_verify"
+)
+
+// ref: https://registry.terraform.io/providers/jdamata/sonarqube/latest/docs#argument-reference
+var (
+	requiredKeys = []string{"host"}
+	optionalKeys = []string{
+		"user",
+		"pass",
+		"token",
+		"installed_version",
+		"tls_insecure_skip_verify",
+		"anonymize_user_on_delete",
+	}
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
@@ -69,22 +76,24 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		}
 
 		// Set credentials in Terraform provider configuration.
-		ps.Configuration = map[string]any{}
-		if v, ok := creds[keyHost]; ok {
-			ps.Configuration[keyHost] = v
+		ps.Configuration = make(map[string]any)
+
+		// Ensure required fields are set.
+		for _, key := range requiredKeys {
+			if value, ok := creds[key]; ok {
+				ps.Configuration[key] = value
+			} else {
+				return ps, errors.Errorf("missing required SonarQube configuration: %s", key)
+			}
 		}
-		if v, ok := creds[keyUser]; ok {
-			ps.Configuration[keyUser] = v
+
+		// Set optional fields if present.
+		for _, key := range optionalKeys {
+			if value, ok := creds[key]; ok {
+				ps.Configuration[key] = value
+			}
 		}
-		if v, ok := creds[keyPass]; ok {
-			ps.Configuration[keyPass] = v
-		}
-		if v, ok := creds[keyToken]; ok {
-			ps.Configuration[keyToken] = v
-		}
-		if v, ok := creds[keyTLSInsecureSkipVerify]; ok {
-			ps.Configuration[keyTLSInsecureSkipVerify] = v
-		}
+
 		return ps, nil
 	}
 }
