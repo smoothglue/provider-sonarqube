@@ -1,5 +1,6 @@
 run:
   timeout: 10m
+  concurrency: 4
 
 output:
   print-linter-name: true
