@@ -1,35 +1,26 @@
 <!--
-Thank you for helping to improve Crossplane!
-
-Please read through https://git.io/fj2m9 if this is your first time opening a
-Crossplane pull request. Find us in https://slack.crossplane.io/messages/dev if
-you need any help contributing.
+Thank you for contributing to provider-sonarqube! 🚀
 -->
 
-### Description of your changes
+## Description
 
 <!--
-Briefly describe what this pull request does. Be sure to direct your reviewers'
-attention to anything that needs special consideration.
-
-We love pull requests that resolve an open Crossplane issue. If yours does, you
-can uncomment the below line to indicate which issue your PR fixes, for example
-"Fixes #500":
-
+Clearly describe the purpose of this PR. If it fixes an issue, reference it
+using "Fixes #<issue_number>". For example: "Fixes #42".
 -->
 Fixes #
 
-I have:
+## Checklist
 
-- [ ] Read and followed Crossplane's [contribution process].
-- [ ] Run `make reviewable test` to ensure this PR is ready for review.
+- [ ] Followed existing code conventions
+- [ ] Updated documentation/examples as needed for new features or changes
+- [ ] Ran `make reviewable test` to ensure the PR is ready for review
 
-### How has this code been tested
+## Testing
 
 <!--
-Before reviewers can be confident in the correctness of this pull request, it
-needs to tested and shown to be correct. Briefly describe the testing that has
-already been done or which is planned for this change.
+Describe how you tested this change. Include details on:
+- Unit, integration, or manual testing performed
+- Expected vs. actual results
+- Any edge cases considered
 -->
-
-[contribution process]: https://git.io/fj2m9

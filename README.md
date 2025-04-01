@@ -7,25 +7,57 @@ SonarQube API.
 
 ## Getting Started
 
-Install the provider by using the following command after changing the image tag
-to the [latest release](https://marketplace.upbound.io/providers/smoothglue/provider-sonarqube):
-```
-up ctp provider install smoothglue/provider-sonarqube:v0.1.0
-```
+### Installation
 
-Alternatively, you can use declarative installation:
-```
+Install the provider using the following `Provider` resource:
+
+```shell
 cat <<EOF | kubectl apply -f -
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
   name: provider-sonarqube
 spec:
-  package: smoothglue/provider-sonarqube:v0.1.0
+  package: ghcr.io/smoothglue/provider-sonarqube:v0.1.0
 EOF
 ```
 
-Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
+### Configuration
+
+Each SonarQube instance you wish to manage will need a separate `ProviderConfig` defined.
+
+Here is an example:
+```yaml
+apiVersion: sonarqube.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: default
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: example-creds
+      namespace: crossplane-system
+      key: credentials
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: example-creds
+  namespace: crossplane-system
+type: Opaque
+stringData:
+  credentials: |
+    {
+      "host": "https://127.0.0.1:9000",
+      "token": "deadbeef",
+      "tls_insecure_skip_verify": true
+    }
+```
+
+### Usage
+
+There are examples of the various resources in the `examples` folder  in this repository.
 
 You can see the API reference [here](https://doc.crds.dev/github.com/smoothglue/provider-sonarqube).
 

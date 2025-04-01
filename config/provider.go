@@ -1,5 +1,7 @@
 /*
 Copyright 2021 Upbound Inc.
+
+Modifications Copyright 2025 BrainGu, LLC
 */
 
 package config
