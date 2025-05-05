@@ -2,8 +2,6 @@ module github.com/smoothglue/provider-sonarqube
 
 go 1.23.6
 
-toolchain go1.24.2
-
 require (
 	dario.cat/mergo v1.0.1
 	github.com/crossplane/crossplane-runtime v1.19.0
