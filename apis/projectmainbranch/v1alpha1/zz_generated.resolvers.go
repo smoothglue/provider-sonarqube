@@ -11,6 +11,7 @@ import (
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
 	errors "github.com/pkg/errors"
 	v1alpha1 "github.com/smoothglue/provider-sonarqube/apis/project/v1alpha1"
+	ptr "k8s.io/utils/ptr"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -22,7 +23,7 @@ func (mg *MainBranch) ResolveReferences(ctx context.Context, c client.Reader) er
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Project),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.Project, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.ProjectRef,
 		Selector:     mg.Spec.ForProvider.ProjectSelector,
@@ -34,11 +35,11 @@ func (mg *MainBranch) ResolveReferences(ctx context.Context, c client.Reader) er
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.Project")
 	}
-	mg.Spec.ForProvider.Project = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.Project = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.ProjectRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Project),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.Project, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.ProjectRef,
 		Selector:     mg.Spec.InitProvider.ProjectSelector,
@@ -50,7 +51,7 @@ func (mg *MainBranch) ResolveReferences(ctx context.Context, c client.Reader) er
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.Project")
 	}
-	mg.Spec.InitProvider.Project = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.Project = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.ProjectRef = rsp.ResolvedReference
 
 	return nil
